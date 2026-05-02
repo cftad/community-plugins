@@ -26,7 +26,12 @@ import {
   getProviderConfig as getConfig,
   getProviderInfo,
 } from '../providers/provider-factory';
-import { executeToolCall, findNpxPath, loadServerConfigs } from '../utils';
+import {
+  executeToolCall,
+  findNpxPath,
+  loadServerConfigs,
+  DEFAULT_MCP_TOOL_CALL_TIMEOUT_MS,
+} from '../utils';
 import { LLMProvider } from '../providers/base-provider';
 import { OpenAIResponsesProvider } from '../providers/openai-responses-provider';
 import { MCPClientService } from './MCPClientService';
@@ -70,10 +75,14 @@ export class MCPClientServiceImpl implements MCPClientService {
   private readonly systemPrompt: string;
   private serverConfigs: MCPServerFullConfig[] = [];
   private allowedToolsByServer: Map<string, string[]> = new Map();
+  private readonly toolCallTimeout: number;
 
   constructor(options: Options) {
     this.logger = options.logger;
     this.config = options.config;
+    this.toolCallTimeout =
+      this.config.getOptionalNumber('mcpChat.toolCallTimeout') ??
+      DEFAULT_MCP_TOOL_CALL_TIMEOUT_MS;
     this.llmProvider = this.initializeLLMProvider();
     this.mcpServers = this.initializeMCPServers();
     this.systemPrompt =
@@ -529,6 +538,7 @@ export class MCPClientServiceImpl implements MCPClientService {
             toolCall,
             this.tools,
             this.mcpClients,
+            this.toolCallTimeout,
           );
           toolResponses.push(toolResponse);
 

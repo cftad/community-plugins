@@ -100,6 +100,8 @@ export interface MCPServerConfig {
   args?: string[];
   /** URL endpoint (for HTTP servers) */
   url?: string;
+  /** List of tools to be excluded for the MCP Server */
+  disabledTools?: string[];
 }
 
 /**

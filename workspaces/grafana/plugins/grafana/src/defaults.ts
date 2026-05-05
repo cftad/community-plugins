@@ -14,12 +14,4 @@
  * limitations under the License.
  */
 
-export { DashboardViewer, EntityDashboardViewer } from './components';
-export * from './plugin';
-export * from './constants';
-export * from './types';
-export {
-  grafanaApiRef,
-  type GrafanaApi,
-  type GrafanaApiClientOptions,
-} from './api';
+export const DEFAULT_PROXY_PATH = '/grafana/api';

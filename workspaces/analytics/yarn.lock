@@ -749,7 +749,6 @@ __metadata:
   resolution: "@backstage-community/plugin-analytics-module-matomo@workspace:plugins/analytics-module-matomo"
   dependencies:
     "@backstage/cli": "backstage:^"
-    "@backstage/core-app-api": "backstage:^"
     "@backstage/core-components": "backstage:^"
     "@backstage/core-plugin-api": "backstage:^"
     "@backstage/dev-utils": "backstage:^"
